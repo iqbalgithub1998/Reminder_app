@@ -1,0 +1,33 @@
+export const lightcolor = {
+  screen: "#F7F7F7",
+  white: "#FFFFFF",
+  orange: "FFC000",
+  lightgrey: "#ccccd9",
+  black: "#000000",
+  line: "#DADADA",
+  switchOff: "#DFDFDF",
+  switchOn: "#ccccd9",
+  searchbar: "#ededed",
+  listcolor: "#FFFFFF",
+  statusbar: "#F7F7F7",
+  status: "dark-content",
+  modalback: "rgba(247, 247, 247,0.2)",
+  reminderColor: "#EEEEEE",
+};
+
+export const darkcolor = {
+  screen: "#000000",
+  white: "#000000",
+  orange: "FFC000",
+  lightgrey: "#ebebeb",
+  black: "#FFFFFF",
+  line: "#DADADA",
+  switchOff: "#DFDFDF",
+  switchOn: "#ccccd9",
+  searchbar: "#222222",
+  listcolor: "#1F1F1F",
+  statusbar: "#000000",
+  status: "light-content",
+  modalback: "rgba(125, 125, 125,0.2)",
+  reminderColor: "#000000",
+};
