@@ -13,11 +13,10 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 export default function Todo({
   item,
   subtaskComp,
-  subItem,
   completeAll,
   editText,
   theme,
-  renderRightAction
+  renderRightAction,
 }) {
   const [isShow, setShowing] = useState(false);
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -79,87 +78,87 @@ export default function Todo({
 
   return (
     <Swipeable renderRightActions={renderRightAction}>
-    <TouchableOpacity
-      onPress={editText}
-      style={[
-        styles.cardcontainer,
-        { backgroundColor: theme ? theme.listcolor : "#FFFFFF" },
-      ]}
-    >
-      <View
+      <TouchableOpacity
+        onPress={editText}
         style={[
-          styles.titleContainer,
+          styles.cardcontainer,
           { backgroundColor: theme ? theme.listcolor : "#FFFFFF" },
         ]}
       >
-        <View style={styles.checkTitle}>
-          <CheckBox
-            tintColors={{ true: "#ccccd9", false: "black" }}
-            onValueChange={completeAll}
-            value={item.done}
-            style={styles.checkbox}
-          />
-          <View>
-            <Text
-              numberOfLines={1}
-              style={
-                item.done
-                  ? [
-                      styles.title1,
-                      { color: theme ? theme.lightgrey : "#ccccd9" },
-                    ]
-                  : [styles.title2, { color: theme ? theme.black : "black" }]
-              }
-            >
-              {item.task.length > 25
-                ? item.task.substring(0, 25 - 3) + "..."
-                : item.task}
-            </Text>
-            {item.time ? (
-              <View style={{ flexDirection: "row" }}>
-                <AntDesign
-                  name="clockcircleo"
-                  size={12}
-                  color={item.done ? "#ccccd9" : "red"}
-                />
-                <Text style={item.done ? styles.time2 : styles.time}>
-                  {item.time}
-                </Text>
-              </View>
+        <View
+          style={[
+            styles.titleContainer,
+            { backgroundColor: theme ? theme.listcolor : "#FFFFFF" },
+          ]}
+        >
+          <View style={styles.checkTitle}>
+            <CheckBox
+              tintColors={{ true: "#ccccd9", false: "black" }}
+              onValueChange={completeAll}
+              value={item.done}
+              style={styles.checkbox}
+            />
+            <View>
+              <Text
+                numberOfLines={1}
+                style={
+                  item.done
+                    ? [
+                        styles.title1,
+                        { color: theme ? theme.lightgrey : "#ccccd9" },
+                      ]
+                    : [styles.title2, { color: theme ? theme.black : "black" }]
+                }
+              >
+                {item.task.length > 25
+                  ? item.task.substring(0, 25 - 3) + "..."
+                  : item.task}
+              </Text>
+              {item.time ? (
+                <View style={{ flexDirection: "row" }}>
+                  <AntDesign
+                    name="clockcircleo"
+                    size={12}
+                    color={item.done ? "#ccccd9" : "red"}
+                  />
+                  <Text style={item.done ? styles.time2 : styles.time}>
+                    {item.time}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+          </View>
+          <View style={styles.icon}>
+            {item.isSubTask ? (
+              <Text style={{ margin: 5, color: "#ccccd9" }}>
+                {item.complateSubTask}/{item.subtask.length}
+              </Text>
+            ) : null}
+            {item.isSubTask ? (
+              <TouchableOpacity
+                onPress={() => {
+                  const val = isShow;
+                  handleAnimation(val);
+                }}
+              >
+                <Animated.View style={animatedStyle}>
+                  <AntDesign name="downcircle" size={24} color="#ccccd9" />
+                </Animated.View>
+              </TouchableOpacity>
             ) : null}
           </View>
         </View>
-        <View style={styles.icon}>
-          {item.isSubTask ? (
-            <Text style={{ margin: 5, color: "#ccccd9" }}>
-              {item.complateSubTask}/{item.subtask.length}
-            </Text>
-          ) : null}
-          {item.isSubTask ? (
-            <TouchableOpacity
-              onPress={() => {
-                const val = isShow;
-                handleAnimation(val);
-              }}
-            >
-              <Animated.View style={animatedStyle}>
-                <AntDesign name="downcircle" size={24} color="#ccccd9" />
-              </Animated.View>
-            </TouchableOpacity>
+        <View>
+          {isShow ? (
+            <FlatList
+              data={item.subtask}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={null}
+            />
           ) : null}
         </View>
-      </View>
-      <View>
-        {isShow ? (
-          <FlatList
-            data={item.subtask}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={null}
-          />
-        ) : null}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
     </Swipeable>
   );
 }
